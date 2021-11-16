@@ -9,6 +9,7 @@ import Costumers from './components/Costumers';
 import Rentals from './components/rentals';
 import NotFound from './components/common/notFound';
 import MoviesForm from './components/movieForm';
+import LoginForm from './components/loginForm';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/customers" element={<Costumers />} />
           <Route path="/rentals" element={<Rentals />} />
           <Route path="/movies/:id" element={< MoviesForm />} />
+          <Route path="/login" element={<LoginForm />} />
           <Route path="*" element={<NotFound />} />
 
         </Routes>
