@@ -1,45 +1,43 @@
 import Input from "./common/input";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const LoginForm = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const [account, setAccount] = useState({ email: "", password: "" });
-  let errors = {};
 
-  const handleChange = ({ currentTarget: input }) => {
-    const newAccount = { ...account };
-    newAccount[input.type] = input.value;
+  const onSubmit = (data) => {
+    const newAccount = data;
     setAccount(newAccount);
+    console.log(data);
+    reset();
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    errors = validate();
-    console.log("submitted");
-  };
-
-  const validate = () => {
-    if (account.email.trim() === "") errors.email = "Email is required";
-    if (account.password.trim() === "")
-      errors.password = "Password is required";
-    return Object.keys(errors).length === 0 ? null : errors;
-  };
-
+  console.log(errors);
   return (
     <div className="row justify-content-center">
+      {console.log("rendering")}
       <div className="col-8 col-lg-4">
         <h2 className="mb-3">Login</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Input
-            type={"email"}
             label={"Email"}
-            value={account.email}
-            onChange={handleChange}
+            name={"email"}
+            type={"email"}
+            errors={errors.email}
+            register={register}
           />
           <Input
-            type={"password"}
             label={"Password"}
-            value={account.password}
-            onChange={handleChange}
+            name={"password"}
+            type={"password"}
+            errors={errors.password}
+            register={register}
           />
           <button type="submit" className="btn btn-primary">
             Submit

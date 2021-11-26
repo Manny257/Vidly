@@ -1,16 +1,18 @@
-const Input = ({ type, onChange, label, value }) => {
+const Input = ({ name, type, label, errors, register, onChange }) => {
   return (
     <div className="mb-3">
-      <label htmlFor={type} className="form-label">
+      <label htmlFor={name} className="form-label">
         {label}
       </label>
       <input
+        {...register(name, { required: `${label} is required` })}
         type={type}
-        value={value}
         onChange={onChange}
         className="form-control"
-        id={type}
+        name={name}
+        id={name}
       />
+      {errors && <small className="text-danger">{errors.message}</small>}
     </div>
   );
 };
