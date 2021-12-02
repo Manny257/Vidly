@@ -6,19 +6,18 @@ import ListGroup from "./common/listGroup";
 import MoviesTable from "./moviesTable";
 import Pagination from "./common/pagination";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 const Movies = () => {
   //state
   const [allMovies, setAllMovies] = useState(getMovies());
   const [currentPage, setCurrentPage] = useState(1);
-  const [allGenres, setAllGenres] = useState([
-    { _id: "", name: "All Genres" },
-    ...getGenres(),
-  ]);
   const [selectedGenre, setSelectedGenre] = useState("");
   const [sortCol, setSortCol] = useState({ path: "title", order: "asc" });
 
   //data preparing
+
+  const allGenres = [{ _id: "", name: "All Genres" }, ...getGenres()];
   const pageSize = 4;
   const filtered =
     selectedGenre && selectedGenre._id
@@ -66,6 +65,9 @@ const Movies = () => {
           />
         </div>
         <div className="col">
+          <Link to="/movies/new">
+            <button className="btn btn-primary">New Movie</button>
+          </Link>
           <MoviesTable
             movies={movies}
             sortCol={sortCol}

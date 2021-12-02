@@ -1,29 +1,27 @@
 import Input from "./common/input";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
-const LoginForm = () => {
+export default function RegisterForm() {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm({ mode: "onTouched" });
-  const [account, setAccount] = useState({ email: "", password: "" });
+  const [user, setUser] = useState({ email: "", password: "", name: "" });
 
   const onSubmit = (data) => {
-    const newAccount = data;
-    setAccount(newAccount);
+    const newUser = data;
+    setUser(newUser);
     console.log(data);
     reset();
   };
-
-  console.log(errors);
   return (
     <div className="row justify-content-center">
       {console.log("rendering")}
       <div className="col-8 col-lg-4">
-        <h2 className="mb-3">Login</h2>
+        <h2 className="mb-3">Register</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             label={"Email"}
@@ -39,13 +37,18 @@ const LoginForm = () => {
             errors={errors.password}
             register={register}
           />
+          <Input
+            label={"Name"}
+            name={"name"}
+            type={"text"}
+            errors={errors.name}
+            register={register}
+          />
           <button type="submit" className="btn btn-primary">
-            Login
+            Register
           </button>
         </form>
       </div>
     </div>
   );
-};
-
-export default LoginForm;
+}
